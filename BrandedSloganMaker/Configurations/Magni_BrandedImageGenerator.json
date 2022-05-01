@@ -1,0 +1,28 @@
+{
+    "Borders":[20,80,20,80],
+    "size":[2000,2000],
+    "logo":{
+        "alignX":"Right",
+        "alignY":"Bottom",
+        "size":30,
+        "path":"C:\\RepoRoot\\TechDevelopment\\DigitalTools\\SloganMaker\\Logos\\MagniLogo.png"
+        },
+    "Debug":true,
+    "Background":{
+        "Colour":[47,46,47],
+        "Type":"Colour"
+        },
+    "Font":{
+        "Colour":[255,255,255],
+        "Size":160,
+        "Name":"alphabetized cassette tapes"
+        },
+    "Header":{
+        "Text":"Quote Of The Day",
+        "Font":"gothamcondensed-bold",
+        "Size":180
+        },
+    "Output":{
+        "path":"Images_Magni"
+        }
+}

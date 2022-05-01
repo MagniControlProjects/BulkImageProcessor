@@ -1,0 +1,33 @@
+{
+    "Borders":[20,80,20,80],
+    "size":[2000,2000],
+    "logo":{
+        "alignX":"Right",
+        "alignY":"Bottom",
+        "size":40,
+        "path":"C:\\RepoRoot\\TechDevelopment\\SocialAutomation\\SloganMaker\\Logos\\TemplateLogo.png"
+        },
+    "Debug":true,
+    "Background":{
+        "Colour":[66,64,64],
+        "Type":"Colour"
+        },
+    "Font":{
+        "Colour":[255,255,255],
+        "Size":150,
+        "Name":"gothamcondensed-book"
+        },
+    "Header":{
+        "Text":"Quote Of The Day",
+        "Font":"gothamcondensed-bold",
+        "Size":180
+        },
+    "Author":{
+        "alignX":"Left",
+        "alignY":"Bottom",
+        "WidthPercent":60
+    },
+    "Output":{
+        "path":"Images_template"
+        }
+}
