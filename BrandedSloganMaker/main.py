@@ -56,19 +56,16 @@ THREAD_MODES = [
 ]
 DEFAULT_CONFIGURATION_FILE = os.path.join(
     currentDirectory,
-    "SloganMaker",
     "Configurations",
-    "imageConfiguration.json"
+    "Magni_BrandedImageGenerator.json"
     )
 DEFAULT_QUOTE_FILE = os.path.join(
     currentDirectory,
-    "SloganMaker",
-    "SampleData",
+    "Resources",
     "GoodQuotes.json"
     )
 DEFAULT_FONTS_FOLDER = os.path.join(
     currentDirectory,
-    "SloganMaker",
     "Fonts"
     )
 

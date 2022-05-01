@@ -53,9 +53,20 @@ else:
     currentDirectory = os.getcwd()
 sys.path.append(currentDirectory)
 
-DEFAULT_CONFIGURATION_FILE = os.path.join(currentDirectory,"SloganMaker","Configurations","imageConfiguration.json")
-DEFAULT_QUOTE_FILE = os.path.join(currentDirectory,"SloganMaker","SampleData","GoodQuotes.json")
-DEFAULT_FONTS_FOLDER = os.path.join(currentDirectory,"SloganMaker","Fonts")
+DEFAULT_CONFIGURATION_FILE = os.path.join(
+    currentDirectory,
+    "Configurations",
+    "Magni_BrandedImageGenerator.json"
+    )
+DEFAULT_QUOTE_FILE = os.path.join(
+    currentDirectory,
+    "Resources",
+    "GoodQuotes.json"
+    )
+DEFAULT_FONTS_FOLDER = os.path.join(
+    currentDirectory,
+    "Fonts"
+    )
 
 class SloganMaker():
     def __init__(
