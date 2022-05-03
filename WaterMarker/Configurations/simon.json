@@ -1,0 +1,24 @@
+{
+    "Watermark":{
+        "MarkType":"Image",
+        "Alignment":{
+            "Padding":[0,0,0,0],
+            "Vertical":"TOP",
+            "Horizontal":"LEFT"
+        },
+        "ColourMode":"Solid",
+        "Colour":[255,255,255],
+        "Scale":1,
+        "Path":"D:\\RepoRoot\\TechDevelopment\\simon\\IMG-20220502-WA0009.jpg",
+        "PreserveColours":[
+            [255,255,255]
+        ]
+    },
+	"Processing":{
+		"Extentions":".jpg",
+		"HotFolderPath":"DEFAULT",
+		"OutputPath":"DEFAULT",
+		"OutputSuffix":"WMTemplate"
+	},
+	"Debug":true
+}

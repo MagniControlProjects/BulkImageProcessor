@@ -1,0 +1,24 @@
+{
+
+    "Watermark":{
+    	"MarkType":"Text",
+		"Alignment":{
+			"Padding":[0,0,0,0],
+			"Vertical":"TOP",
+			"Horizontal":"LEFT"
+		},
+		"ColourMode":"Solid",
+		"Colour":[255,255,255],
+		"Size":250,
+		"Font":"gothamcondensed-book",
+		"FontFile":"GothamCondensed-Book.otf",
+		"Text":"MagniControlProjects"
+	},
+	"Processing":{
+		"Extentions":".jpg",
+		"HotFolderPath":"DEFAULT",
+		"OutputPath":"DEFAULT",
+		"OutputSuffix":"WMTemplate"
+	},
+	"Debug":true
+}
