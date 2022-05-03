@@ -8,12 +8,9 @@
         },
         "ColourMode":"Solid",
         "Colour":[255,255,255],
-        "Scale":1,
-        "Path":"D:\\RepoRoot\\TechDevelopment\\simon\\IMG-20220502-WA0009.jpg",
-        "PreserveColours":[
-            [255,255,255]
-        ]
-    },
+        "Scale":0.6,
+        "Path":"D:\\RepoRoot\\TechDevelopment\\BulkImageProcessor\\WaterMarks\\IMG-20220502-WA0009.jpg"
+	},
 	"Processing":{
 		"Extentions":".jpg",
 		"HotFolderPath":"DEFAULT",

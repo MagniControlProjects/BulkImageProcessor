@@ -7,7 +7,7 @@ try:
 except:
     print("Failed to import pillow, please run 'pip install pillow' from command line.")
     
-class WatermarkMasker():
+class WatermarkMarker():
     def __init__(
             self,
             Configuration,
@@ -40,7 +40,7 @@ class WatermarkMasker():
             #Size = Percentage of total 
             self.ImageFile = self.Configuration["Path"]
             self.Scale = self.Configuration["Scale"]
-            self.PreserveColours = self.Configuration["PreserveColours"]
+            #self.PreserveColours = self.Configuration["PreserveColours"]
         self.MaskFormat = "P" #Palette
         try:
             self.LimitX = self.Configuration["HorizontalLimit"]
@@ -67,7 +67,8 @@ class WatermarkMasker():
             self.MarkWidth,self.MarkHeight = self.Font.getsize(self.WatermarkText)
         elif self.MarkType == "Image":
             with Image.open(self.ImageFile) as WM_Image:
-                self.MarkWidth,self.MarkHeight = WM_Image.width*self.Scale,WM_Image.height*self.Scale
+                WM_Image = WM_Image.resize((int(WM_Image.width*self.Scale),int(WM_Image.height*self.Scale)))
+                self.MarkWidth,self.MarkHeight = WM_Image.width,WM_Image.height
         
         #Determine X
         if self.AlignmentX.upper() == "Middle" or self.AlignmentX.upper() == "CENTER":
@@ -87,10 +88,8 @@ class WatermarkMasker():
         return
     
     def GenerateMark(self):
-        #Mask
         MaskOutput = Image.new("P",(self.ImageWidth,self.ImageHeight),color = 255)
         Drawable = ImageDraw.Draw(MaskOutput)
-        #
         ActualOutput =  Image.open(self.InputImage)
         DrawOut = ImageDraw.Draw(ActualOutput)
         if self.MarkType == "Text":
@@ -103,20 +102,14 @@ class WatermarkMasker():
                 MaskInput = MaskInput.resize(
                     (int(MaskInput.width*self.Scale),int(MaskInput.height*self.Scale))
                      )
-            self.Preserve = []
-            if MaskInput.mode == "RGB":
-                for colour in self.PreserveColours:
-                    self.Preserve.append(tuple((colour[0],colour[1],colour[2])))
             for px_X in range(MaskInput.width):
                 for px_Y in range(MaskInput.height):
                     Pixel = MaskInput.getpixel((px_X,px_Y))
                     if Pixel[0] > 50 or Pixel[1] > 50 or Pixel[2] > 50: #Check > 50 for aliasing.
-                    #if Pixel != (0,0,0):
-                        #print("PixelFound")
                         Drawable.point((px_X,px_Y),fill=0)
                         DrawOut.point((px_X,px_Y),Pixel)
-
         MaskOutput.save(self.MaskPath)
+        ActualOutput.crop((0,0,self.ImageWidth,self.ImageHeight))
         ActualOutput.save(self.OutputPath)
         return 
         
@@ -161,10 +154,7 @@ if __name__ == '__main__':
         "ColourMode":"Solid",
         "Colour":[255,255,255],
         "Scale":1,
-        "Path":"D:\\RepoRoot\\TechDevelopment\\simon\\IMG-20220502-WA0009.jpg",
-        "PreserveColours":[
-            [255,255,255]
-        ]
+        "Path":"D:\\RepoRoot\\TechDevelopment\\simon\\IMG-20220502-WA0009.jpg"
     }
     Masker = WatermarkMasker(
         ImageConfiguration,
