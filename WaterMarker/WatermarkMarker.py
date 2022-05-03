@@ -73,18 +73,25 @@ class WatermarkMarker():
         #Determine X
         if self.AlignmentX.upper() == "Middle" or self.AlignmentX.upper() == "CENTER":
             self.DrawX = (self.ImageWidth/2) - (self.MarkWidth/2)
+            print ("Aligning X Middle")
         elif self.AlignmentX.upper() == "RIGHT":
+            print ("Aligning Y Right")
             self.DrawX = self.ImageWidth - self.MarkWidth - self.Padding[3]
         elif self.AlignmentX.upper() == "LEFT":
+            print ("Aligning Y Left")
             self.DrawX = 0 + self.Padding[2]
             
         #Determine Y Draw Position
         if self.AlignmentY.upper() == "MIDDLE" or self.AlignmentY.upper() == "CENTER":
+            print ("Aligning Y Centre")
             self.DrawY = (self.ImageHeight/2) - (self.MarkHeight/2)
         elif self.AlignmentY.upper() == "BOTTOM":
+            print ("Aligning Y Bottom")
             self.DrawY = self.ImageHeight - self.MarkHeight - self.Padding[1]
         elif self.AlignmentY.upper() == "TOP":
+            print ("Aligning Y Bottom")
             self.DrawY = 0 + self.Padding[0]
+        print (f"DrawX = {self.DrawX}, DrawY = {self.DrawY}")
         return
     
     def GenerateMark(self):
@@ -107,7 +114,7 @@ class WatermarkMarker():
                     Pixel = MaskInput.getpixel((px_X,px_Y))
                     if Pixel[0] > 50 or Pixel[1] > 50 or Pixel[2] > 50: #Check > 50 for aliasing.
                         Drawable.point((px_X,px_Y),fill=0)
-                        DrawOut.point((px_X,px_Y),Pixel)
+                        DrawOut.point((px_X+self.DrawX,px_Y+self.DrawY),Pixel)
         MaskOutput.save(self.MaskPath)
         ActualOutput.crop((0,0,self.ImageWidth,self.ImageHeight))
         ActualOutput.save(self.OutputPath)
