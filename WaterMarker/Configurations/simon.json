@@ -2,14 +2,15 @@
     "Watermark":{
         "MarkType":"Image",
         "Alignment":{
-            "Padding":[0,0,0,0],
+            "PadX":0,
+			"PadY":-100,
             "Vertical":"BOTTOM",
             "Horizontal":"RIGHT"
         },
         "ColourMode":"Solid",
         "Colour":[255,255,255],
-        "Scale":0.6,
-        "Path":"D:\\RepoRoot\\TechDevelopment\\BulkImageProcessor\\WaterMarks\\IMG-20220502-WA0009.jpg"
+        "Scale":0.4,
+        "Path":"D:\\RepoRoot\\TechDevelopment\\BulkImageProcessor\\WaterMarks\\IMG-20220502-WA0007.jpg"
 	},
 	"Processing":{
 		"Extentions":".jpg",

@@ -26,9 +26,13 @@ class WatermarkMarker():
         self.AlignmentX = self.Configuration["Alignment"]["Horizontal"]
         self.AlignmentY = self.Configuration["Alignment"]["Vertical"]
         try:
-            self.Padding = self.Configuration["Alignment"]["Padding"]
+            self.PadX = self.Configuration["Alignment"]["PadX"]
         except:
-            self.Padding = [10,10,10,10] # [top, bottom, left, right]
+            self.PadX = 0
+        try:
+            self.PadY = self.Configuration["Alignment"]["PadY"]
+        except:
+            self.PadY = 0
         self.MarkType = self.Configuration["MarkType"]
         if self.MarkType == "Text":
             #Size = Font Size
@@ -76,10 +80,10 @@ class WatermarkMarker():
             print ("Aligning X Middle")
         elif self.AlignmentX.upper() == "RIGHT":
             print ("Aligning Y Right")
-            self.DrawX = self.ImageWidth - self.MarkWidth - self.Padding[3]
+            self.DrawX = self.ImageWidth - self.MarkWidth - self.PadX
         elif self.AlignmentX.upper() == "LEFT":
             print ("Aligning Y Left")
-            self.DrawX = 0 + self.Padding[2]
+            self.DrawX = 0 + self.PadX
             
         #Determine Y Draw Position
         if self.AlignmentY.upper() == "MIDDLE" or self.AlignmentY.upper() == "CENTER":
@@ -87,10 +91,10 @@ class WatermarkMarker():
             self.DrawY = (self.ImageHeight/2) - (self.MarkHeight/2)
         elif self.AlignmentY.upper() == "BOTTOM":
             print ("Aligning Y Bottom")
-            self.DrawY = self.ImageHeight - self.MarkHeight - self.Padding[1]
+            self.DrawY = self.ImageHeight - self.MarkHeight - self.PadY
         elif self.AlignmentY.upper() == "TOP":
             print ("Aligning Y Bottom")
-            self.DrawY = 0 + self.Padding[0]
+            self.DrawY = 0 + self.PadY
         print (f"DrawX = {self.DrawX}, DrawY = {self.DrawY}")
         return
     
