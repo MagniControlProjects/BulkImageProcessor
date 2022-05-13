@@ -80,6 +80,7 @@ def main(args):
                         )
                     OutputPath = os.path.join(OutputFolder,i_file)
                     Executors[-1].run(OutputPath)
+                    numberOfFiles += 1
         Duration = time.time() - TotalStartTimer
         print("Total Image creation of %s images complete in "%numberOfFiles)
         print(Duration)

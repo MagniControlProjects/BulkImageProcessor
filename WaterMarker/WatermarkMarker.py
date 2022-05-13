@@ -18,10 +18,31 @@ class WatermarkMarker():
         '''
         self.Configuration = Configuration
         self.InputImage = InputImage
+        
+    def ChangeInputImage(
+            self,
+            NewInputImage
+            ):
+        '''
+        After the object has been constructed, if the configuration remains the same, just the 
+        image path may be used and the process can be re-run.
+        '''
+        self.InputImage = NewInputImage
     
     def InterpretConfiguration(self):
         '''
-        Draw Text on the document from the quote input file.
+        Where MarkType is Text, we expect:
+        - "Font": name of the font to be used"
+        - "FontFile": relative path to the font file.
+        - "Text": String of letters to place on the artwork.
+        
+        Where MarkType is "Image", we expect:
+        - "Path": to point at the image file absolute path.
+        - "Scale": Currently scales the watermark by a factor. TODO: Make description of how to scale.
+        - "Background": For non RGBa format files, describes the colour used for the background.
+        
+        Both:
+        - "GenerateMask" 
         '''
         self.AlignmentX = self.Configuration["Alignment"]["Horizontal"]
         self.AlignmentY = self.Configuration["Alignment"]["Vertical"]
@@ -44,7 +65,15 @@ class WatermarkMarker():
             #Size = Percentage of total 
             self.ImageFile = self.Configuration["Path"]
             self.Scale = self.Configuration["Scale"]
+            try:
+                self.Background = self.Configuration["Background"]
+            except:
+                self.Background = "Transparent"
             #self.PreserveColours = self.Configuration["PreserveColours"]
+        try:
+            self.GenerateMask = self.Configuration["GenerateMask"]
+        except:
+            self.GenerateMask = False
         self.MaskFormat = "P" #Palette
         try:
             self.LimitX = self.Configuration["HorizontalLimit"]
@@ -58,14 +87,15 @@ class WatermarkMarker():
     def InterpretImage(self):
         with Image.open(self.InputImage) as I_Image:
             self.ImageWidth,self.ImageHeight = I_Image.width,I_Image.height
+            self.ImageType = I_Image.mode
         print(f"Image is w:{self.ImageWidth}px h:{self.ImageHeight}px")
+        print(f"Image type is {self.ImageType}")
         return
         
     def CalculateGeometry(self):
         '''
-        Workout where the text is going to land. Using adobes definition for alignment.
+        Workout where the text is going to land. Using Adobe definition for alignment.
         '''
-        
         if self.MarkType == "Text":
             self.Font = ImageFont.truetype(self.FontFile,self.Size)
             self.MarkWidth,self.MarkHeight = self.Font.getsize(self.WatermarkText)
@@ -113,12 +143,29 @@ class WatermarkMarker():
                 MaskInput = MaskInput.resize(
                     (int(MaskInput.width*self.Scale),int(MaskInput.height*self.Scale))
                      )
-            for px_X in range(MaskInput.width):
-                for px_Y in range(MaskInput.height):
-                    Pixel = MaskInput.getpixel((px_X,px_Y))
-                    if Pixel[0] > 50 or Pixel[1] > 50 or Pixel[2] > 50: #Check > 50 for aliasing.
-                        Drawable.point((px_X,px_Y),fill=0)
-                        DrawOut.point((px_X+self.DrawX,px_Y+self.DrawY),Pixel)
+            if MaskInput.mode == "RGB":
+                if self.Background == "Black":
+                    for px_X in range(MaskInput.width):
+                        for px_Y in range(MaskInput.height):
+                                Pixel = MaskInput.getpixel((px_X,px_Y))
+                                if Pixel[0] > 35 or Pixel[1] > 35 or Pixel[2] > 35: #Check > 50 for aliasing.
+                                    Drawable.point((px_X,px_Y),fill=0)
+                                    DrawOut.point((px_X+self.DrawX,px_Y+self.DrawY),Pixel)
+                elif self.Background == "White":
+                    for px_X in range(MaskInput.width):
+                        for px_Y in range(MaskInput.height):
+                                Pixel = MaskInput.getpixel((px_X,px_Y))
+                                if Pixel[0] < 220  or Pixel[1] < 220 or Pixel[2] < 220: #Check > 50 for aliasing.
+                                    Drawable.point((px_X,px_Y),fill=0)
+                                    DrawOut.point((px_X+self.DrawX,px_Y+self.DrawY),Pixel)
+            else:
+                #being lazy assuming catchall for transparent.
+                for px_X in range(MaskInput.width):
+                    for px_Y in range(MaskInput.height):
+                            Pixel = MaskInput.getpixel((px_X,px_Y))
+                            if Pixel[3] > 20:
+                                Drawable.point((px_X,px_Y),fill=0)
+                                DrawOut.point((px_X+self.DrawX,px_Y+self.DrawY),fill=(Pixel[0],Pixel[1],Pixel[2]))
         MaskOutput.save(self.MaskPath)
         ActualOutput.crop((0,0,self.ImageWidth,self.ImageHeight))
         ActualOutput.save(self.OutputPath)

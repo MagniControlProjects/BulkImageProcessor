@@ -10,7 +10,8 @@
         "ColourMode":"Solid",
         "Colour":[255,255,255],
         "Scale":0.4,
-        "Path":"D:\\RepoRoot\\TechDevelopment\\BulkImageProcessor\\WaterMarks\\IMG-20220502-WA0007.jpg"
+        "Path":"D:\\RepoRoot\\TechDevelopment\\BulkImageProcessor\\WaterMarks\\MCP Logo_RGB_BGIsBlack.jpg",
+        "Background":"Black"
 	},
 	"Processing":{
 		"Extentions":".jpg",
